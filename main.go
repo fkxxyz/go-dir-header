@@ -97,6 +97,10 @@ func (f *fileHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Access-Control-Allow-Origin", r.Header.Get("origin"))
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
 	http.ServeContent(w, r, info.Name(), info.ModTime(), file)
 }
 
